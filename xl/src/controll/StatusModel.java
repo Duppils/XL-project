@@ -11,10 +11,14 @@ public class StatusModel extends Observable {
 	}
 	
 	public void setStatus(String s) {
+		setChanged();
+		notifyObservers();
 		statusMessage = s;
 	}
 	
 	public void setStatus(XLException e) {
+		setChanged();
+		notifyObservers();
 		statusMessage = e.getMessage();
 	}
 }

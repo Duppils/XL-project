@@ -2,26 +2,24 @@ package controll;
 
 import java.util.Observable;
 
-/*
- * Att göra: implementera att den här får en lyssnare någonstans!
- **/
 
-public class CurrentSlot implements CurrentSlotInterface {
+public class CurrentSlot extends Observable {
 	
 	String current = "A1";
 	
-	public CurrentSlot(){}
+	public CurrentModel(){}
 	
 	public String getCurrent(){
 		return current;
 	}
 	
-	public Stirng toString() {
+	public String toString() {
 		return current;
 	}
 	
-	public void set(String newCurrent) {
+	public void setState(String newCurrent) {
 		currentSlot = newCurrent;
+		setChanged();
 		notifyObservers();
 	}
 	

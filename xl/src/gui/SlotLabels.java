@@ -12,7 +12,7 @@ public class SlotLabels extends GridPanel implements Observer {
     /*
      * Borde inte den här ha en sheet som inparameter också?
      */
-    public SlotLabels(int rows, int cols) {
+    public SlotLabels(int rows, int cols, Control c) {
         super(rows + 1, cols);
         labelList = new ArrayList<SlotLabel>(rows * cols);
         for (char ch = 'A'; ch < 'A' + cols; ch++) {
@@ -21,13 +21,12 @@ public class SlotLabels extends GridPanel implements Observer {
         }
         for (int row = 1; row <= rows; row++) {
             for (char ch = 'A'; ch < 'A' + cols; ch++) {
-                SlotLabel label = new SlotLabel();
+            	String ID = generateID(row, ch);
+                SlotLabel label = new SlotLabel(ID, c);
                 add(label);
                 labelList.add(label);
             }
         }
-        SlotLabel firstLabel = labelList.get(0);
-        firstLabel.setBackground(Color.YELLOW);
     }
     
     public void update(Observable o, Object arg) {
@@ -43,10 +42,15 @@ public class SlotLabels extends GridPanel implements Observer {
     	int index = 0;
     	for (int row = 1; row <= rows; row++) {
             for (char ch = 'A'; ch < 'A' + cols; ch++) {
-                String value = s.getValue( Character.toString(ch) + Integer.toString(row) );
+                String value = s.getValue( generateID );
                 list.get(index).setText(value);
                 index++;
             }
         }
     }
+    
+    private String generateID(int i, char c) {
+    	return Character.toString(ch) + Integer.toString(row) 
+    }
+    
 }

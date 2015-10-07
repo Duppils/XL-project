@@ -10,6 +10,10 @@ public class StatusModel extends Observable {
 		
 	}
 	
+	public String getStatus() {
+		return statusMessage;
+	}
+	
 	public void setStatus(String s) {
 		setChanged();
 		notifyObservers();

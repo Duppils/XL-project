@@ -10,7 +10,7 @@ public class StatusLabel extends ColoredLabel implements Observer {
 	
     public StatusLabel(Control c) {
         super("", Color.WHITE);
-        sm = c.getStatusModell();
+        sm = c.getStatusModel();
         sm.addObserver(this);
     }
 

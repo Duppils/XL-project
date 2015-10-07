@@ -1,5 +1,8 @@
 package controll;
 
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+
 public class Control {
 	
 	private CurrentModel cm = new CurrentModel();
@@ -10,10 +13,10 @@ public class Control {
 	}
 	
 	public MouseListener getMouseListener(){
-		return new MouseListener();
+		return null;
 	}
-	public KeyboardListener getKeyBoardListener() {
-		return new KeyboardListener();
+	public KeyListener getKeyBoardListener() {
+		return null;
 	}
 	
 	public CurrentModel getCurrentModel(){

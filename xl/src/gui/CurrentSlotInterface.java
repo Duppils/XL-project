@@ -1,7 +1,10 @@
+package gui;
 
-public interface CurrentSlotInterface extends observable {
+import java.util.*;
+
+public abstract class CurrentSlotInterface extends Observable {
 	
-	public String getCurrent(String);
-	public void setCurrent(String);
+	public abstract String getCurrent(String s);
+	public abstract void setCurrent(String s);
 	
 }

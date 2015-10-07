@@ -3,13 +3,13 @@ package controll;
 import java.util.Observable;
 
 
-public class CurrentSlot extends Observable {
+public class CurrentModel extends Observable {
 	
 	String current = "A1";
 	
 	public CurrentModel(){}
 	
-	public String getCurrent(){
+	public String getState(){
 		return current;
 	}
 	
@@ -18,7 +18,7 @@ public class CurrentSlot extends Observable {
 	}
 	
 	public void setState(String newCurrent) {
-		currentSlot = newCurrent;
+		current = newCurrent;
 		setChanged();
 		notifyObservers();
 	}

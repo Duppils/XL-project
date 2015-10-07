@@ -2,6 +2,7 @@ package spreadsheet;
 
 import java.util.HashMap;
 import java.util.Observable;
+
 import expr.Environment;
 
 public class Sheet extends Observable implements Environment {
@@ -18,7 +19,7 @@ public class Sheet extends Observable implements Environment {
 	}
 	
 	public void setValue(String name, String textInput){
-		map.put(name, sb.build(textInput));
+		map.put(name, sb.build(textInput, ""));
 	}
 	
 	@Override

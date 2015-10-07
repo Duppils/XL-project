@@ -11,12 +11,17 @@ import java.awt.print.Printable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class XL extends JFrame implements Printable {
-    private static final int ROWS = 10, COLUMNS = 8;
-    private XLCounter counter;
-    private StatusLabel statusLabel = new StatusLabel();
-    private XLList xlList;
+import controll.Control;
 
+public class XL extends JFrame implements Printable {
+	private Control controller = new Control();
+	
+	private static final int ROWS = 10, COLUMNS = 8;
+    private XLCounter counter;
+    private StatusLabel statusLabel = new StatusLabel(controller);
+    private XLList xlList;
+    
+    
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter);
     }
@@ -27,8 +32,8 @@ public class XL extends JFrame implements Printable {
         this.counter = counter;
         xlList.add(this);
         counter.increment();
-        JPanel statusPanel = new StatusPanel(statusLabel);
-        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS);
+        JPanel statusPanel = new StatusPanel(statusLabel, controller);
+        JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, controller);
         Editor editor = new Editor();
         add(NORTH, statusPanel);
         add(CENTER, editor);
@@ -53,8 +58,9 @@ public class XL extends JFrame implements Printable {
         setTitle(title);
         xlList.setChanged();
     }
-
+    
     public static void main(String[] args) {
         new XL(new XLList(), new XLCounter());
     }
 }
+

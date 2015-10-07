@@ -4,16 +4,22 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.util.*;
 import controll.*;
+import java.awt.Dimension;
 
 public class SlotLabel extends ColoredLabel implements MouseListener, Observer {
 	
 	private final String ID;
 	private CurrentModel cm;
+	private final String WIDTHSTRING = "                    ";
 	
     public SlotLabel(String ID, Control c) {
-    	super("                    ", Color.WHITE, RIGHT);
+    	super(" ", Color.WHITE, RIGHT);
+    	setPreferredSize( new Dimension(60, 15) );
     	this.ID = ID;
     	cm = c.getCurrentModel();
+    	if (cm.getState().equals(this.ID)) {
+    		setBackground(Color.YELLOW);
+    	}
     	cm.addObserver(this);
     	addMouseListener(this);
     }
@@ -22,7 +28,7 @@ public class SlotLabel extends ColoredLabel implements MouseListener, Observer {
      * Inherited from ActionListener
      */
     public void ActionPerformed(ActionEvent e) {
-    	cm.setState(ID);
+    	return;
     }
     
     /*
@@ -36,15 +42,10 @@ public class SlotLabel extends ColoredLabel implements MouseListener, Observer {
     	}
     }
 
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("This is SlotLabel with ID=" + ID + " I've been clicked by a mouse!");
+    	cm.setState(ID);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class SlotLabels extends GridPanel implements Observer {
     /*
      * Borde inte den här ha en sheet som inparameter också?
      */
-    public SlotLabels(int rows, int cols, Control c) {
+    public SlotLabels(int rows, int cols, Control c, SheetInterface sheet) {
         super(rows + 1, cols);
         this.ROWS = rows;
         this.COLS = cols;
@@ -36,18 +36,19 @@ public class SlotLabels extends GridPanel implements Observer {
                 labelList.add(label);
             }
         }
+        updateLabels(sheet);
     }
     
     public void update(Observable o, Object arg) {
     	try {
-    		Sheet s = (Sheet) o;
+    		SheetInterface s = (SheetInterface) o;
     		updateLabels(s);
     	} catch (Exception e) {
     		System.out.println("An error occured of unknown type in SlotLabels.update() ");
     	}
     }
     
-    private void updateLabels(Sheet s) {
+    private void updateLabels(SheetInterface s) {
     	int index = 0;
     	for (int row = 1; row <= ROWS; row++) {
             for (char ch = 'A'; ch < 'A' + COLS; ch++) {

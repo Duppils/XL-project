@@ -7,15 +7,14 @@ import controll.*;
 
 public class CurrentLabel extends ColoredLabel implements Observer {
 	
-	CurrentModel cm;
-	
     public CurrentLabel(Control c) {
         super("A1", Color.WHITE);
-        cm = c.getCurrentModel();
+        CurrentModel cm = c.getCurrentModel();
         cm.addObserver(this);
     }
     
     public void update(Observable o, Object arg){
+    	CurrentModel cm = (CurrentModel) o;
     	setText(cm.getState());
     }
 }

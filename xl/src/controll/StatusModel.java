@@ -6,8 +6,10 @@ import util.XLException;
 public class StatusModel extends Observable {
 	private String statusMessage = "";
 	
+	public static enum State {NOTHING, NEWDATA}; 
+	private State state = State.NOTHING;
+	
 	public StatusModel(){
-		
 	}
 	
 	public String getStatus() {
@@ -24,5 +26,15 @@ public class StatusModel extends Observable {
 		setChanged();
 		notifyObservers();
 		statusMessage = e.getMessage();
+	}
+	
+	public void setState(State s) {
+		this.state = s;
+		setChanged();
+		notifyObservers();
+	}
+	
+	public State getState() {
+		return state;
 	}
 }

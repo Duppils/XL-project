@@ -14,14 +14,16 @@ import javax.swing.JPanel;
 import controll.Control;
 
 public class XL extends JFrame implements Printable {
-	private Control controller = new Control();
+	
 	
 	private static final int ROWS = 10, COLUMNS = 8;
     private XLCounter counter;
-    private StatusLabel statusLabel = new StatusLabel(controller);
+    
     private XLList xlList;
     
-    private SheetInterface sheet= new TestSheet(); //byt ut mot Sheet() när den klassen är klar
+    private SheetBase sheet= new TestSheet(); //byt ut mot Sheet() när den klassen är klar
+    private Control controller = new Control(sheet);
+    private StatusLabel statusLabel = new StatusLabel(controller);
     
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter);
@@ -35,7 +37,7 @@ public class XL extends JFrame implements Printable {
         counter.increment();
         JPanel statusPanel = new StatusPanel(statusLabel, controller);
         JPanel sheetPanel = new SheetPanel(ROWS, COLUMNS, controller, sheet);
-        Editor editor = new Editor();
+        Editor editor = new Editor(sheet, controller);
         add(NORTH, statusPanel);
         add(CENTER, editor);
         add(SOUTH, sheetPanel);

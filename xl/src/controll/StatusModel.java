@@ -31,7 +31,7 @@ public class StatusModel extends Observable {
 	public void setState(State s) {
 		this.state = s;
 		setChanged();
-		notifyObservers();
+		super.notifyObservers();
 	}
 	
 	public State getState() {

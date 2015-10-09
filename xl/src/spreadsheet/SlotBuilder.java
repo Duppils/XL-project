@@ -7,20 +7,15 @@ public class SlotBuilder implements SlotFactory {
 	}
 
 	@Override
-	public Slot build(String name, String input) { //use makeXX()
-		return null;
+	public Slot build(String input) {
+		if(input.startsWith("#")){
+			return new CommentSlot(input);
+		}
+		return new ExprSlot(input);
 	}
 	
-	private Slot makeComment(String name, String input) {
-		return new CommentSlot(name, input);
-	}
-	
-	private Slot makeExpr(String name, String input) {
-		return new ExprSlot(name, input);
-	}
-	
-	private Slot makeBomb(String name, String input) {
-		return new BombSlot(name, input);
+	public BombSlot buildBomb(){
+		return new BombSlot();
 	}
 
 }

@@ -2,6 +2,8 @@ package spreadsheet;
 
 import java.util.HashMap;
 import java.util.Observable;
+
+import util.XLException;
 import expr.Environment;
 
 public class Sheet extends Observable implements Environment {
@@ -17,8 +19,13 @@ public class Sheet extends Observable implements Environment {
 		return map.get(name).toString();
 	}
 	
-	public void setValue(String name, String textInput){
-		map.put(name, sb.build(textInput));
+	public void setValue(String name, String input){
+		try{
+			map.put(name, sb.buildBomb());
+		}catch(XLException e){
+			
+		}
+		map.put(name, sb.build(input));
 	}
 	
 	@Override

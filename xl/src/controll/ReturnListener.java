@@ -11,8 +11,8 @@ import spreadsheet.*;
 
 public class ReturnListener implements KeyListener {
 	
-	SheetBase sheet;
-	CurrentModel cm;
+	private SheetBase sheet;
+	private CurrentModel cm;
 	
 	public ReturnListener(SheetBase s, CurrentModel cm) {
 		this.sheet = s;

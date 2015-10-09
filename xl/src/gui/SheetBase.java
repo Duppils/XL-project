@@ -6,6 +6,7 @@ import expr.Environment;
 import util.XLException;
 
 public abstract class SheetBase extends Observable implements Environment {
+	
 	public abstract double value(String name); // inherited from Environment
 	
 	public abstract String getValue(String name) throws XLException;

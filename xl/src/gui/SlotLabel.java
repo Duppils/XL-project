@@ -25,13 +25,6 @@ public class SlotLabel extends ColoredLabel implements MouseListener, Observer {
     }
     
     /*
-     * Inherited from ActionListener
-     */
-    public void ActionPerformed(ActionEvent e) {
-    	return;
-    }
-    
-    /*
      * Inherited from Observer
      */
     public void update(Observable observable, Object o) {

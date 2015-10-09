@@ -6,11 +6,13 @@ public abstract class Slot {
 //		
 //	}
 	
-	public String toStringValue(){ //används för value()
-		
+	public String toStringValue(){ //anvï¿½nds fï¿½r value()
+		return "";
 	}
 	
-	public String toStringExpr();
+	public String toStringExpr(){
+		return "";
+	}
 	
 	public abstract double value();
 

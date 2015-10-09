@@ -1,14 +1,16 @@
 package controll;
 
-import java.awt.event;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ActionHandler implements ActionListener {
 	
 	public ActionHandler() { }
 	
-	actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		//lyssna efter enter-tryck
 		//lyssna efter klick på ruta
+		
 	}
 
 }

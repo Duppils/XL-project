@@ -14,7 +14,7 @@ public class ExprSlot extends Slot {
 
 	@Override
 	public double value() { //kanske en expr.op(parser.temr(), parser.factor()) 
-		return ;
+		return 0;
 	}
 	
 	private Expr build(String input){  

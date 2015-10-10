@@ -1,32 +1,26 @@
 package spreadsheet;
 
-import java.io.IOException;
-
+import expr.Environment;
 import expr.Expr;
-import expr.ExprParser;
 
-public class ExprSlot extends Slot {
+public class ExprSlot extends Slot implements Environment {
 	private Expr expr;
+	private Environment env;  // VIKTIGT, MÅSTE DISKUTERA ENVIRONMENT
 
-	public ExprSlot(String input) {
-		expr = build(input); 
+	public ExprSlot(Expr expr) {
+		this.expr = expr;
 	}
 
 	@Override
-	public double value() { //kanske en expr.op(parser.temr(), parser.factor()) 
+	public double value() { 
+		return expr.value(env); //Detta är det ända sättet att returnera här
+	}
+
+	@Override
+	public double value(String name) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 	
-	private Expr build(String input){  
-		Expr temp = null;
-		try{
-			ExprParser parser = new ExprParser();
-			temp = parser.build(input);
-		}catch(IOException e){
-			System.err.println(e.getMessage());
-		}		
-		
-		return temp;
-	}
 
 }

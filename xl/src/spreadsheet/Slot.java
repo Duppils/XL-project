@@ -6,7 +6,7 @@ public abstract class Slot {
 //		
 //	}
 	
-	public String toStringValue(){ //anv�nds f�r value()
+	public String toStringValue(){
 		return "";
 	}
 	

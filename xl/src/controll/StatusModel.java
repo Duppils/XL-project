@@ -6,7 +6,7 @@ import util.XLException;
 public class StatusModel extends Observable {
 	private String statusMessage = "";
 	
-	public static enum State {NOTHING, NEWDATA}; 
+	public static enum State {NOTHING, NEWDATA, ERROR}; 
 	private State state = State.NOTHING;
 	
 	public StatusModel(){

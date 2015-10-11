@@ -10,4 +10,9 @@ public class BombSlot extends Slot {
 		throw new XLException("Circular dependency detected!");
 	}
 
+	@Override
+	public String toString() {
+		return "BombSlot";
+	}
+
 }

@@ -21,6 +21,11 @@ public class ExprSlot extends Slot implements Environment {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public String toString() {
+		return expr.toString();
+	}
 	
 
 }

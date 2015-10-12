@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controll.Control;
+import spreadsheet.*;
+
 
 public class XL extends JFrame implements Printable {
 	
@@ -21,7 +23,7 @@ public class XL extends JFrame implements Printable {
     
     private XLList xlList;
     
-    private SheetBase sheet= new TestSheet(); //byt ut mot Sheet() när den klassen är klar
+    private SheetBase sheet = new Sheet(); //byt ut mot Sheet() när den klassen är klar
     private Control controller = new Control(sheet);
     private StatusLabel statusLabel = new StatusLabel(sheet);
     
@@ -47,7 +49,7 @@ public class XL extends JFrame implements Printable {
         setResizable(false);
         setVisible(true);
     }
-
+    
     public int print(Graphics g, PageFormat pageFormat, int page) {
         if (page > 0)
             return NO_SUCH_PAGE;

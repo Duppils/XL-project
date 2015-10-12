@@ -11,75 +11,77 @@ import gui.SheetBase;
 public class Sheet extends SheetBase {
 	private HashMap<String, Slot> map;
 	private SlotBuilder sb;
-	
-	public Sheet(){
+
+	public Sheet() {
 		sb = new SlotBuilder(this);
 		map = new HashMap<String, Slot>();
 	}
 
-	public String getValue(String name) throws XLException{ 
-			try{
-				return map.get(name).toString();
-			}catch(NullPointerException e){
-				//System.err.println(e.getMessage());
-				return "";
-			}
+	public String getValue(String name) throws XLException {
+		try {
+			return map.get(name).toString();
+		} catch (NullPointerException e) {
+			return "";
+		}
 	}
-	
-	public void setValue(String name, String input) throws XLException{
-		if(map.get(name) != null){
-			try{
-				map.put(name, sb.build(""));
-				//räkna ut alla nya värden
-			}catch(XLException e){
-				System.err.println(e.getMessage());
-			}
+
+	public void setValue(String name, String input) throws XLException {
+		Slot oldSlot = map.get(name);
+		Slot newSlot = sb.build(input);
+		try {
+			map.put(name, sb.buildBomb());
+			newSlot.value();
 			map.put(name, sb.build(input));
+		} catch (XLException e) {
+			map.put(name, oldSlot);
+			System.err.println(e.getMessage());
 		}
 		setChanged();
 		notifyObservers();
 	}
-	
+
 	@Override
-	public double value(String name){ 
-		try{
+	public double value(String name) {
+		try {
 			return map.get(name).value();
-		}catch(NullPointerException e){
+		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
 		return 0;
 	}
-	
+
 	@Override
-	public void load(File f) throws XLException{
+	public void load(File f) throws XLException {
 		Scanner scan = null;
 		try {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage());  
+			System.err.println(e.getMessage());
 		}
-		if(scan != null){
+		if (scan != null) {
 			String[] list;
-			while(scan.hasNext()){
+			while (scan.hasNext()) {
 				list = scan.nextLine().split("=");
 				setValue(list[0], list[1]);
 			}
 		}
 		scan.close();
 	}
-	
+
 	@Override
-	public void save(File f) throws XLException{
+	public void save(File f) throws XLException {
 		PrintWriter p = null;
-		try{
+		try {
 			p = new PrintWriter(f);
-		}catch(FileNotFoundException e){
+		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
 		}
 		StringBuilder sb = new StringBuilder();
-		for(char c = 'A'; c <= 'Z'; c++){  // A1-Z9 dubbelkolla om detta fungerar
-			for(int i = 1; i <= 9; i++){
-				sb.append(c + i);
+		for (char c = 'A'; c <= 'Z'; c++) { // A1-Z9 dubbelkolla om detta
+											// fungerar
+			for (int i = 1; i <= 9; i++) {
+				sb.append(c);
+				sb.append(i);
 				p.println(getValue(sb.toString()));
 			}
 		}

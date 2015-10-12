@@ -16,10 +16,7 @@ public class ExprSlot extends Slot {
 		return expr.value(env); 
 	}
 
-	public double value(String name) { //Does nothing
-		return 0;
-	}
-
+	
 	@Override
 	public String toString() {
 		return expr.toString();

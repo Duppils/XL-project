@@ -20,8 +20,6 @@ public class SlotBuilder implements SlotFactory {
 	public Slot build(String input) throws XLException{
 		if(input.startsWith("#")){
 			return new CommentSlot(input);
-		}else if(input == ""){  
-			return new BombSlot();
 		}
 		Expr temp = null;
 		try{
@@ -30,6 +28,12 @@ public class SlotBuilder implements SlotFactory {
 			System.err.println(e.getMessage());
 		}	
 		return new ExprSlot(temp, env);
+	}
+
+	@Override
+	public BombSlot buildBomb() {
+		// TODO Auto-generated method stub
+		return new BombSlot();
 	}
 	
 }

@@ -22,9 +22,9 @@ public class CommentSlot extends Slot {
 		return comment.substring(1);
 	}
 
-	@Override
-	public int hashCode() {
-		return 0;
-	}
+//	@Override
+//	public int hashCode() {
+//		return 0;
+//	}
 	
 }

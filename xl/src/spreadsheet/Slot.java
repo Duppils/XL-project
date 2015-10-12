@@ -2,10 +2,11 @@ package spreadsheet;
 
 public abstract class Slot {
 	
-	//Ska vi ha flera toString-metoder, t.ex. för att skriva ut hela expr eller bara värdet av den?
-	// ex "#Hej" i statusfältet och "Hej" i själva sloten.
-	public abstract String toString();
+	public abstract String toString(); //slots in GUI
+	
+	public abstract String formattedToString(); //String in editor
 	
 	public abstract double value();
-	// hashcode-metod?
+	
+	public abstract int hashCode();
 }

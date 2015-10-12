@@ -4,13 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Observable;
 import java.util.Scanner;
-
 import util.XLException;
-import expr.Environment;
+import gui.SheetBase;
 
-public class Sheet extends Observable implements Environment {
+public class Sheet extends SheetBase {
 	private HashMap<String, Slot> map;
 	private SlotBuilder sb;
 	
@@ -36,9 +34,6 @@ public class Sheet extends Observable implements Environment {
 	
 	@Override
 	public double value(String name) { 
-//		if(map.get(name) == null){
-//			return 0;
-//		}
 		try{
 			return map.get(name).value();
 		}catch(NullPointerException e){
@@ -47,13 +42,13 @@ public class Sheet extends Observable implements Environment {
 		return 0;
 	}
 	
-	public void loadFromFile(File f){
+	@Override
+	public void load(File f) throws XLException{
 		Scanner scan = null;
 		try {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.err.println(e.getMessage());  //vilken metod �r b�st h�r?
+			System.err.println(e.getMessage());  
 		}
 		if(scan != null){
 			String[] list;
@@ -65,7 +60,8 @@ public class Sheet extends Observable implements Environment {
 		scan.close();
 	}
 	
-	public void savetoFile(File f){
+	@Override
+	public void save(File f) throws XLException{
 		PrintWriter p = null;
 		try{
 			p = new PrintWriter(f);
@@ -81,4 +77,5 @@ public class Sheet extends Observable implements Environment {
 		}
 		p.close();
 	}
+
 }

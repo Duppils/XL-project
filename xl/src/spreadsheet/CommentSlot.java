@@ -4,7 +4,7 @@ public class CommentSlot extends Slot {
 	private String comment;
 
 	public CommentSlot(String comment) {
-		this.comment = comment.substring(1);
+		this.comment = comment;
 	}
 
 	@Override
@@ -16,6 +16,15 @@ public class CommentSlot extends Slot {
 	public String toString() {
 		return comment;
 	}
-	
+
+	@Override
+	public String formattedToString() {
+		return comment.substring(1);
+	}
+
+	@Override
+	public int hashCode() {
+		return 0;
+	}
 	
 }

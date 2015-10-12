@@ -15,4 +15,14 @@ public class BombSlot extends Slot {
 		return "BombSlot";
 	}
 
+	@Override
+	public String formattedToString() {
+		return "BombSlot";
+	}
+
+	@Override
+	public int hashCode() {
+		return 0;
+	}
+
 }

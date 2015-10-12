@@ -1,6 +1,8 @@
 package spreadsheet;
 
 import java.io.IOException;
+
+import util.XLException;
 import expr.Expr;
 import expr.ExprParser;
 import expr.Environment;
@@ -15,10 +17,10 @@ public class SlotBuilder implements SlotFactory {
 	}
 
 	@Override
-	public Slot build(String input) { // throws XLException??
+	public Slot build(String input) throws XLException{
 		if(input.startsWith("#")){
 			return new CommentSlot(input);
-		}else if(input == ""){   //kan �ndras beroende p� hur BombSlot anv�nds
+		}else if(input == ""){  
 			return new BombSlot();
 		}
 		Expr temp = null;

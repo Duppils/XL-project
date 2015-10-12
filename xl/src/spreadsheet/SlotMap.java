@@ -22,12 +22,12 @@ public class SlotMap {
 	
 	/**
 	 * Inserts a new Slot into the Map and set.
-	 * @param str the key for the slot
-	 * @param slot
+	 * @param key the key for the slot
+	 * @param value
 	 */
-	public void put(String str, Slot slot) {
-		map.put(str, slot);
-		set.add(str);
+	public void put(String key, Slot value) {
+		map.put(key, value);
+		set.add(key);
 	}
 	
 	/**
@@ -47,5 +47,13 @@ public class SlotMap {
 			list.add( map.get(s) );
 		}
 		return list;
+	}
+	
+	/**
+	 * Removes the value that corresponds to key from the SlotMap.
+	 * @param key the key to remove
+	 */
+	public void remove(String key) {
+		// TODO
 	}
 }

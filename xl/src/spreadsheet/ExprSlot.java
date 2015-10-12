@@ -19,12 +19,12 @@ public class ExprSlot extends Slot {
 	
 	@Override
 	public String toString() {
-		return expr.toString();
+		return new Double( expr.value(env) ).toString() ;
 	}
 
 	@Override
 	public String formattedToString() {
-		return "=" + toString();
+		return expr.toString();
 	}
 
 //	@Override

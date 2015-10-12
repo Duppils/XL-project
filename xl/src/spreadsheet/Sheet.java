@@ -8,6 +8,12 @@ import java.util.Scanner;
 import util.XLException;
 import gui.SheetBase;
 
+/*
+ * Kvar att göra i sheet:
+ * - Lösa så att vi kan ta bort slots som inte refereras från någon annan slot.
+ * - division med noll i "andra hand"
+ */
+
 public class Sheet extends SheetBase {
 	private HashMap<String, Slot> map;
 	private SlotBuilder sb;
@@ -24,30 +30,72 @@ public class Sheet extends SheetBase {
 			return "";
 		}
 	}
-
-	public void setValue(String name, String input) throws XLException {
-		Slot oldSlot = map.get(name);
-		Slot newSlot = sb.build(input);
+	
+	public String getFormatedValue(String name) throws XLException {
 		try {
-			map.put(name, sb.buildBomb());
-			newSlot.value();
-			map.put(name, sb.build(input));
-		} catch (XLException e) {
-			map.put(name, oldSlot);
-			System.err.println(e.getMessage());
+			return map.get(name).formattedToString();
+		} catch (NullPointerException e) {
+			return "";
 		}
-		setChanged();
-		notifyObservers();
 	}
 
+	public void setValue(String name, String input) throws XLException {
+		if ( checkInput(input) ) {
+			Slot oldSlot = map.get(name);
+			Slot newSlot = sb.build(input);
+			try {
+				map.put(name, sb.buildBomb());
+				newSlot.value();
+				map.put(name, sb.build(input));
+			} catch (Exception e) {
+				System.out.println("Exception fångat i setValue rad 45");
+				if (oldSlot != null) {
+					map.put(name, oldSlot);
+				}
+				status.setStatusMessage( e.getMessage() );
+				return;
+			}
+			status.setStatusMessage("Great Success!");
+			setChanged();
+			notifyObservers();
+		}
+	}
+	
+	/**
+	 * @param input String to be checked
+	 * @return true if no invalid reference is caused by the input, 
+	 * 			and if the input is properly formated.
+	 */
+	private boolean checkInput(String input) {
+		try {
+			Slot s = sb.build(input);
+			s.value();
+		} catch (Exception e) {
+			System.out.println("Hej");
+			System.out.println(e.getMessage());
+			if (e instanceof NullPointerException) {
+				status.setStatusMessage("Invalid reference!");
+				return false;
+			} else if (e instanceof XLException) {
+				status.setStatusMessage(e.getMessage() );
+				return false;
+			}
+			return false;
+		}
+		return true;
+	}
+	
 	@Override
 	public double value(String name) {
 		try {
 			return map.get(name).value();
 		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
+			/*
+			 * Name fanns inte i vår map, alltså är den inte initalizerad med ett värde.
+			 * Vi kastar ett exception!
+			 */
+			throw new XLException("Uninitialized reference!");
 		}
-		return 0;
 	}
 
 	@Override

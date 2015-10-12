@@ -47,6 +47,7 @@ public class SlotLabels extends GridPanel implements Observer {
     		System.out.println( s.toString() );
     		updateLabels(s);
     	} catch (Exception e) {
+    		System.out.println(e.getMessage());
     		System.out.println("An error occured of unknown type in SlotLabels.update() ");
     	}
     }

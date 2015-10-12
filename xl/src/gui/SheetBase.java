@@ -13,6 +13,7 @@ public abstract class SheetBase extends Observable implements Environment {
 	
 	public abstract double value(String name); // inherited from Environment
 	
+	public abstract String getFormatedValue(String name) throws XLException;
 	public abstract String getValue(String name) throws XLException;
 	public abstract void setValue(String name, String textInput) throws XLException;
 	

@@ -18,15 +18,18 @@ public class SlotBuilder implements SlotFactory {
 
 	@Override
 	public Slot build(String input) throws XLException{
-		if(input.startsWith("#")){
+		if ( input.isEmpty() ) {
+			return new CommentSlot("");
+		}
+		if( input.startsWith("#") ){
 			return new CommentSlot(input);
 		}
 		Expr temp = null;
 		try{
 			temp = parser.build(input);
-		}catch(IOException e){
+		} catch(IOException e){
 			System.err.println(e.getMessage());
-		}	
+		}
 		return new ExprSlot(temp, env);
 	}
 

@@ -60,5 +60,11 @@ public class TestSheet extends SheetBase{
 		status.setStatusMessage("This is only a testsheet, can't load...");
 		return;
 	}
+
+	@Override
+	public String getFormatedValue(String name) throws XLException {
+		// TODO Auto-generated method stub
+		return "";
+	}
 	
 }

@@ -2,8 +2,11 @@ package spreadsheet;
 
 public class CommentSlot extends Slot {
 	private String comment;
-
+	
 	public CommentSlot(String comment) {
+		if ( comment.isEmpty() ) {
+			comment = "#";
+		}
 		this.comment = comment;
 	}
 
@@ -14,12 +17,12 @@ public class CommentSlot extends Slot {
 
 	@Override
 	public String toString() {
-		return comment;
+		return comment.substring(1);
 	}
 
 	@Override
 	public String formattedToString() {
-		return comment.substring(1);
+		return comment;
 	}
 
 //	@Override

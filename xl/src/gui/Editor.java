@@ -26,6 +26,6 @@ public class Editor extends JTextField implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		CurrentModel cm = (CurrentModel) o;
-		setText( sheet.getValue( cm.getState() ) );
+		setText( sheet.getFormatedValue( cm.getState() ) );
 	}
 }

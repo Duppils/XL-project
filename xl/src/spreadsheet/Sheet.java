@@ -24,7 +24,6 @@ public class Sheet extends SheetBase {
 				//System.err.println(e.getMessage());
 				return "";
 			}
-			
 	}
 	
 	public void setValue(String name, String input) throws XLException{
@@ -86,5 +85,4 @@ public class Sheet extends SheetBase {
 		}
 		p.close();
 	}
-
 }

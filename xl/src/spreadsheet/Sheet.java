@@ -30,7 +30,7 @@ public class Sheet extends SheetBase {
 		Slot oldSlot = map.get(name);
 		Slot newSlot = sb.build(input);
 		try {
-			map.put(name, sb.build(""));
+			map.put(name, sb.buildBomb());
 			newSlot.value();
 			map.put(name, sb.build(input));
 		} catch (XLException e) {

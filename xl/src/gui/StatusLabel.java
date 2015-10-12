@@ -3,18 +3,19 @@ package gui;
 import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
-import controll.*;
+import spreadsheet.Status;
+
 
 public class StatusLabel extends ColoredLabel implements Observer {
-	StatusModel sm;
+	Status status;
 	
-    public StatusLabel(Control c) {
+    public StatusLabel(SheetBase sheet) {
         super("", Color.WHITE);
-        sm = c.getStatusModel();
-        sm.addObserver(this);
+        status = sheet.getStatus();
+        status.addObserver(this);
     }
 
     public void update(Observable observable, Object object) {
-        setText( sm.getStatus() );
+        setText( status.getStatusMessage() );
     }
 }

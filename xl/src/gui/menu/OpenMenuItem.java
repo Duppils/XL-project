@@ -32,7 +32,7 @@ public abstract class OpenMenuItem extends JMenuItem implements ActionListener {
         if (option == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             try {
-                action(file.toString());
+                action(file.toString()); //skickar in filnamnet
                 xl.rename(file.getName());
             } catch (FileNotFoundException e) {
                 statusLabel.setText(e.getMessage());

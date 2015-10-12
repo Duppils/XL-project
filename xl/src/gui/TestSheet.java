@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Observable;
 
@@ -38,7 +39,7 @@ public class TestSheet extends SheetBase{
 		map.put(name, textInput);
 		setChanged();
 		notifyObservers();
-		System.out.println("setValue returns!");
+		status.setStatusMessage("Added " + textInput + " to " + name);
 	}
 	
 	public double value(String name) {
@@ -50,16 +51,14 @@ public class TestSheet extends SheetBase{
 		}
 	}
 	
-	public void save(String filename) {
-		generateMsg("save");
+	public void save(File f) {
+		status.setStatusMessage("This is only a testsheet, can't save...");
 		return;
 	}
 
-	@Override
-	public void load(String filename) throws XLException {
-		generateMsg("load");
+	public void load(File f) throws XLException {
+		status.setStatusMessage("This is only a testsheet, can't load...");
 		return;
-		
 	}
 	
 }

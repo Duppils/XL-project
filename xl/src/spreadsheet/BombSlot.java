@@ -6,7 +6,7 @@ public class BombSlot extends Slot {
 	public BombSlot(){
 	}   
 	
-	public double value(){
+	public double value() throws XLException {
 		throw new XLException("Circular dependency detected!");
 	}
 

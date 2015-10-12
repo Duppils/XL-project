@@ -3,19 +3,22 @@ package spreadsheet;
 import java.io.IOException;
 import expr.Expr;
 import expr.ExprParser;
+import expr.Environment;
 
 public class SlotBuilder implements SlotFactory {
 	private ExprParser parser;
+	private Environment env;
 	
-	public SlotBuilder(){
+	public SlotBuilder(Environment env){
 		parser = new ExprParser();
+		this.env = env;
 	}
 
 	@Override
-	public Slot build(String input) {
+	public Slot build(String input) { // throws XLException??
 		if(input.startsWith("#")){
 			return new CommentSlot(input);
-		}else if(input == ""){   //kan ändras beroende på hur BombSlot används
+		}else if(input == ""){   //kan ï¿½ndras beroende pï¿½ hur BombSlot anvï¿½nds
 			return new BombSlot();
 		}
 		Expr temp = null;
@@ -24,7 +27,7 @@ public class SlotBuilder implements SlotFactory {
 		}catch(IOException e){
 			System.err.println(e.getMessage());
 		}	
-		return new ExprSlot(temp);
+		return new ExprSlot(temp, env);
 	}
 	
 }

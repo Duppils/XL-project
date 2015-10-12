@@ -30,7 +30,7 @@ public class Sheet extends Observable implements Environment {
 			}catch(XLException e){
 				System.err.println(e.getMessage());
 			}
-			map.put(name, sb.build(input));	
+			map.put(name, sb.build(input));
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class Sheet extends Observable implements Environment {
 //			return 0;
 //		}
 		try{
-		return map.get(name).value();
+			return map.get(name).value();
 		}catch(NullPointerException e){
 			System.err.println(e.getMessage());
 		}
@@ -53,7 +53,7 @@ public class Sheet extends Observable implements Environment {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			System.err.println(e.getMessage());  //vilken metod är bäst här?
+			System.err.println(e.getMessage());  //vilken metod ï¿½r bï¿½st hï¿½r?
 		}
 		if(scan != null){
 			String[] list;

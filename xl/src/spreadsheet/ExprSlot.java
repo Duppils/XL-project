@@ -3,20 +3,19 @@ package spreadsheet;
 import expr.Environment;
 import expr.Expr;
 
-public class ExprSlot extends Slot implements Environment {
+public class ExprSlot extends Slot {
 	private Expr expr;
-	private Environment env;  // VIKTIGT, MÅSTE DISKUTERA ENVIRONMENT
+	private Environment env;  // VIKTIGT, Mï¿½STE DISKUTERA ENVIRONMENT
 
-	public ExprSlot(Expr expr) {
+	public ExprSlot(Expr expr, Environment env) {
 		this.expr = expr;
+		this.env = env;
 	}
 
-	@Override
 	public double value() { 
-		return expr.value(env); //Detta är det ända sättet att returnera här
+		return expr.value(env); //Detta ï¿½r det ï¿½nda sï¿½ttet att returnera hï¿½r
 	}
 
-	@Override
 	public double value(String name) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -27,5 +26,4 @@ public class ExprSlot extends Slot implements Environment {
 		return expr.toString();
 	}
 	
-
 }

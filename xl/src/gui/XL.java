@@ -23,7 +23,7 @@ public class XL extends JFrame implements Printable {
     
     private SheetBase sheet= new TestSheet(); //byt ut mot Sheet() när den klassen är klar
     private Control controller = new Control(sheet);
-    private StatusLabel statusLabel = new StatusLabel(controller);
+    private StatusLabel statusLabel = new StatusLabel(sheet);
     
     public XL(XL oldXL) {
         this(oldXL.xlList, oldXL.counter);
@@ -65,5 +65,9 @@ public class XL extends JFrame implements Printable {
     public static void main(String[] args) {
         new XL(new XLList(), new XLCounter());
     }
+
+	public SheetBase getSheet() {
+		return sheet;
+	}
 }
 

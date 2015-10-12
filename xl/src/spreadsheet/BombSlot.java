@@ -20,9 +20,9 @@ public class BombSlot extends Slot {
 		return "BombSlot";
 	}
 
-	@Override
-	public int hashCode() {
-		return 0;
-	}
+//	@Override
+//	public int hashCode() {
+//		return 0;
+//	}
 
 }

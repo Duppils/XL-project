@@ -8,5 +8,5 @@ public abstract class Slot {
 	
 	public abstract double value();
 	
-	public abstract int hashCode();
+//	public abstract int hashCode();
 }

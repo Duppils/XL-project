@@ -17,11 +17,11 @@ public class Sheet extends SheetBase {
 		map = new HashMap<String, Slot>();
 	}
 
-	public String getValue(String name){ 
+	public String getValue(String name) throws XLException{ 
 		return map.get(name).toString();
 	}
 	
-	public void setValue(String name, String input){
+	public void setValue(String name, String input) throws XLException{
 		if(map.get(name) != null){
 			try{
 				map.put(name, sb.build(""));
@@ -33,7 +33,7 @@ public class Sheet extends SheetBase {
 	}
 	
 	@Override
-	public double value(String name) { 
+	public double value(String name){ 
 		try{
 			return map.get(name).value();
 		}catch(NullPointerException e){

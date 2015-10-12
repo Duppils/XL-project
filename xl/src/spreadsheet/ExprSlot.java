@@ -30,10 +30,9 @@ public class ExprSlot extends Slot {
 		return "=" + toString();
 	}
 
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+//	@Override
+//	public int hashCode() {
+//		return 0;
+//	}
 	
 }

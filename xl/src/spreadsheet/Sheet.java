@@ -12,8 +12,8 @@ public class Sheet extends SheetBase {
 	private HashMap<String, Slot> map;
 	private SlotBuilder sb;
 	
-	public Sheet(SlotBuilder sb){
-		this.sb = sb;
+	public Sheet(){
+		sb = new SlotBuilder(this);
 		map = new HashMap<String, Slot>();
 	}
 

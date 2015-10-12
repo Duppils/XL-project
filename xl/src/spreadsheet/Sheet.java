@@ -18,7 +18,12 @@ public class Sheet extends SheetBase {
 	}
 
 	public String getValue(String name) throws XLException{ 
-		return map.get(name).toString();
+			try{
+				return map.get(name).toString();
+			}catch(NullPointerException e){
+				System.err.println(e.getMessage());
+			}
+			return "";
 	}
 	
 	public void setValue(String name, String input) throws XLException{

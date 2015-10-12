@@ -21,20 +21,24 @@ public class Sheet extends SheetBase {
 			try{
 				return map.get(name).toString();
 			}catch(NullPointerException e){
-				System.err.println(e.getMessage());
+				//System.err.println(e.getMessage());
+				return "";
 			}
-			return "";
+			
 	}
 	
 	public void setValue(String name, String input) throws XLException{
 		if(map.get(name) != null){
 			try{
 				map.put(name, sb.build(""));
+				//räkna ut alla nya värden
 			}catch(XLException e){
 				System.err.println(e.getMessage());
 			}
 			map.put(name, sb.build(input));
 		}
+		setChanged();
+		notifyObservers();
 	}
 	
 	@Override

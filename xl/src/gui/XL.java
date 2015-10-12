@@ -10,7 +10,6 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import controll.Control;
 import spreadsheet.*;
 

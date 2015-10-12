@@ -17,25 +17,25 @@ public class Sheet extends SheetBase {
 		map = new HashMap<String, Slot>();
 	}
 
-	public String getValue(String name) throws XLException{ 
-			try{
-				return map.get(name).toString();
-			}catch(NullPointerException e){
-				//System.err.println(e.getMessage());
-				return "";
-			}
-			
+	public String getValue(String name) throws XLException {
+		try {
+			return map.get(name).toString();
+		} catch (NullPointerException e) {
+			return "";
+		}
+
 	}
-	
-	public void setValue(String name, String input) throws XLException{
-		if(map.get(name) != null){
-			try{
-				map.put(name, sb.build(""));
-				//räkna ut alla nya värden
-			}catch(XLException e){
-				System.err.println(e.getMessage());
-			}
+
+	public void setValue(String name, String input) throws XLException {
+		Slot oldSlot = map.get(name);
+		Slot newSlot = sb.build(input);
+		try {
+			map.put(name, sb.build(""));
+			newSlot.value();
 			map.put(name, sb.build(input));
+		} catch (XLException e) {
+			map.put(name, oldSlot);
+			System.err.println(e.getMessage());
 		}
 		setChanged();
 		notifyObservers();
@@ -81,7 +81,8 @@ public class Sheet extends SheetBase {
 		for (char c = 'A'; c <= 'Z'; c++) { // A1-Z9 dubbelkolla om detta
 											// fungerar
 			for (int i = 1; i <= 9; i++) {
-				sb.append(c + i);
+				sb.append(c);
+				sb.append(i);
 				p.println(getValue(sb.toString()));
 			}
 		}

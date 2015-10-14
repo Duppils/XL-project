@@ -41,10 +41,10 @@ public class SlotMap {
 	/**
 	 * @return a linked list containing all the Slots in the map.
 	 */
-	public LinkedList<Slot> getList(){
-		LinkedList<Slot> list = new LinkedList<Slot>();
+	public LinkedList<String> getList(){
+		LinkedList<String> list = new LinkedList<String>();
 		for ( String s: set ) {
-			list.add( map.get(s) );
+			list.add( s );
 		}
 		return list;
 	}

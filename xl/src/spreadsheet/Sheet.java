@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
 import util.XLException;
 import gui.SheetBase;
@@ -105,15 +106,25 @@ public class Sheet extends SheetBase {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
+			status.setStatusMessage("Error in reading from file!");
 		}
 		if (scan != null) {
 			String[] list;
 			while (scan.hasNext()) {
 				list = scan.nextLine().split("=");
+				// Does not handle "=" in comments in save file...
+//				if ( list[1].contains("#") ) {
+//					for (int i = 2; i < list.length ; i++) {
+//						list[1] = list[1].concat("=").concat(list[i]);
+//					}
+//				}
 				setValue(list[0], list[1]);
 			}
 		}
 		scan.close();
+		status.setStatusMessage("Great success in loading from file!");
+		setChanged();
+		notifyObservers();
 	}
 
 	@Override
@@ -123,35 +134,39 @@ public class Sheet extends SheetBase {
 			p = new PrintWriter(f);
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
+			status.setStatusMessage("I can't let you save to file, Dave...");
 		}
 		StringBuilder sb = new StringBuilder();
-		for (char c = 'A'; c <= 'Z'; c++) { // A1-Z9 dubbelkolla om detta
-											// fungerar
-			for (int i = 1; i <= 9; i++) {
-				sb.append(c);
-				sb.append(i);
-				p.println(getValue(sb.toString()));
-			}
+		LinkedList<String> slotID = map.getList();
+		
+		for (String ID: slotID) {
+			Slot slot = map.get(ID);
+			sb.append(ID);
+			sb.append("=");
+			sb.append(slot.formattedToString() );
+			sb.append("\n");
 		}
+		p.append(sb);
 		p.close();
+		status.setStatusMessage("Saved succesfully.");
 	}
 	
 	public boolean clear(String name) throws XLException {
         Slot old = map.remove(name);
-        BombSlot bomb = sb.buildBomb();
-        //map.put(name, bomb);
         try{
-        	for( Slot s: map.getList() ){
-        		s.value();
+        	/*
+        	 * Kolla så att inga andra slots beror på den vi försöker ta bort.
+        	 */
+        	for( String s: map.getList() ){
+        		map.get(s).value();
             }
         }catch(Exception e){
-            //map.remove(name);
+        	// någonting berodde på den. Lägg tillbaka.
             map.put(name, old);
             e.getMessage();
             status.setStatusMessage("Error: something depends on this cell!");
             return false;
         }
-        map.remove(name);
         setChanged();
         notifyObservers();
         return true;

@@ -139,23 +139,27 @@ public class Sheet extends SheetBase {
 	public boolean clear(String name) throws XLException {
         Slot old = map.remove(name);
         BombSlot bomb = sb.buildBomb();
-        map.put(name, bomb);
+        //map.put(name, bomb);
         try{
         	for( Slot s: map.getList() ){
         		s.value();
             }
         }catch(Exception e){
-            map.remove(name);
+            //map.remove(name);
             map.put(name, old);
             e.getMessage();
-            status.setStatusMessage(e.getMessage());
+            status.setStatusMessage("Error: something depends on this cell!");
             return false;
         }
         map.remove(name);
+        setChanged();
+        notifyObservers();
         return true;
     }
     
     public void clearAll(){
         map.clear();
+        setChanged();
+        notifyObservers();
     }
 }

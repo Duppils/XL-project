@@ -11,12 +11,16 @@ import controll.*;
 
 public class Editor extends JTextField implements Observer {
 	SheetBase sheet;
+	CurrentModel cm;
 	
     public Editor(SheetBase sheet, Control c) {
     	this.sheet = sheet;
+    	this.cm = c.getCurrentModel();
     	addKeyListener( c.getKeyListener() );
         setBackground(Color.WHITE);
-        c.getCurrentModel().addObserver(this);
+        
+        cm.addObserver(this);
+        sheet.addObserver(this);
     }
     
     public String toString(){
@@ -25,7 +29,14 @@ public class Editor extends JTextField implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		CurrentModel cm = (CurrentModel) o;
-		setText( sheet.getFormatedValue( cm.getState() ) );
+		try {
+			// currentmodel var det som uppdaterats.
+			CurrentModel cm1 = (CurrentModel) o;
+			setText( sheet.getFormatedValue( cm.getState() ) );
+		} catch (Exception e) {
+			// det var inte cm, utan då var det sheet istället...
+			setText( sheet.getFormatedValue( cm.getState() ) );
+		}
+		
 	}
 }

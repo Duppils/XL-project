@@ -3,7 +3,7 @@ package controll;
 import java.util.Observable;
 
 /*
-Test av git
+
 */
 public class CurrentModel extends Observable {
 	

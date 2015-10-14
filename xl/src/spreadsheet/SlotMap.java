@@ -53,7 +53,14 @@ public class SlotMap {
 	 * Removes the value that corresponds to key from the SlotMap.
 	 * @param key the key to remove
 	 */
-	public void remove(String key) {
-		// TODO
+	public Slot remove(String key) {
+		Slot s = map.remove(key);
+		set.remove(key);
+		return s;
+	}
+	
+	public void clear() {
+		map.clear();
+		set.clear();
 	}
 }

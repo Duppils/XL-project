@@ -15,12 +15,12 @@ import gui.SheetBase;
  */
 
 public class Sheet extends SheetBase {
-	private HashMap<String, Slot> map;
+	private SlotMap map;
 	private SlotBuilder sb;
 
 	public Sheet() {
 		sb = new SlotBuilder(this);
-		map = new HashMap<String, Slot>();
+		map = new SlotMap();
 	}
 
 	public String getValue(String name) throws XLException {
@@ -135,4 +135,27 @@ public class Sheet extends SheetBase {
 		}
 		p.close();
 	}
+	
+	public boolean clear(String name) throws XLException {
+        Slot old = map.remove(name);
+        BombSlot bomb = sb.buildBomb();
+        map.put(name, bomb);
+        try{
+        	for( Slot s: map.getList() ){
+        		s.value();
+            }
+        }catch(Exception e){
+            map.remove(name);
+            map.put(name, old);
+            e.getMessage();
+            status.setStatusMessage(e.getMessage());
+            return false;
+        }
+        map.remove(name);
+        return true;
+    }
+    
+    public void clearAll(){
+        map.clear();
+    }
 }

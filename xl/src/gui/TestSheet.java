@@ -66,5 +66,16 @@ public class TestSheet extends SheetBase{
 		// TODO Auto-generated method stub
 		return "";
 	}
+
+	@Override
+	public boolean clear(String name) throws XLException {
+		map.remove(name);
+		return true;
+	}
+
+	@Override
+	public void clearAll() throws XLException {
+		map.clear();
+	}
 	
 }

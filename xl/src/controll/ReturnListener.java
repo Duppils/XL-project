@@ -9,6 +9,9 @@ import gui.Editor;
 
 import spreadsheet.*;
 
+/*
+ * This class contains the functionality for when the return key is pressed.
+ */
 public class ReturnListener implements KeyListener {
 	
 	private SheetBase sheet;
@@ -28,13 +31,18 @@ public class ReturnListener implements KeyListener {
 			sheet.setValue( cm.toString(), s );
 		}
 	}
-
-	@Override
+	
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 * Not implemented!
+	 */
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
+	//Not implemented!
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		

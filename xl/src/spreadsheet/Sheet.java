@@ -9,12 +9,6 @@ import java.util.Scanner;
 import util.XLException;
 import gui.SheetBase;
 
-/*
- * Kvar att göra i sheet:
- * - Lösa så att vi kan ta bort slots som inte refereras från någon annan slot.
- * - division med noll i "andra hand"
- */
-
 public class Sheet extends SheetBase {
 	private SlotMap map;
 	private SlotBuilder sb;

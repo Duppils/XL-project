@@ -25,7 +25,6 @@ public class ReturnListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if ( e.getKeyCode() == KeyEvent.VK_ENTER ) {
-			System.out.println("This is ReturnListener.keyPressed(), source was; " + e.getSource().toString() );
 			Editor editor =(Editor) e.getSource();
 			String s = editor.getText();
 			sheet.setValue( cm.toString(), s );

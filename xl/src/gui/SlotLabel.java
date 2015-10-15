@@ -37,8 +37,7 @@ public class SlotLabel extends ColoredLabel implements MouseListener, Observer {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("This is SlotLabel: " + ID + ". I've been clicked by a mouse!");
-    	cm.setState(ID);
+		cm.setState(ID);
 	}
 
 	@Override

@@ -14,6 +14,7 @@ public class SlotLabels extends GridPanel implements Observer {
     private List<SlotLabel> labelList;
     private final int ROWS;
     private final int COLS;
+    private SheetBase sheet;
 
     /*
      * Borde inte den här ha en sheet som inparameter också?
@@ -22,6 +23,7 @@ public class SlotLabels extends GridPanel implements Observer {
         super(rows + 1, cols);
         this.ROWS = rows;
         this.COLS = cols;
+        this.sheet = sheet;
         
         labelList = new ArrayList<SlotLabel>(ROWS * COLS);
         for (char ch = 'A'; ch < 'A' + COLS; ch++) {
@@ -36,20 +38,12 @@ public class SlotLabels extends GridPanel implements Observer {
                 labelList.add(label);
             }
         }
-        sheet.addObserver(this);
-        updateLabels(sheet);
+        this.sheet.addObserver(this);
+        updateLabels(this.sheet);
     }
     
     public void update(Observable o, Object arg) {
-    	System.out.println("update called in slotlabels!");
-    	try {
-    		SheetBase s = (SheetBase) o;
-    		System.out.println( s.toString() );
-    		updateLabels(s);
-    	} catch (Exception e) {
-    		System.out.println(e.getMessage());
-    		System.out.println("An error occured of unknown type in SlotLabels.update() ");
-    	}
+    	updateLabels(sheet);
     }
     
     private void updateLabels(SheetBase s) {
@@ -66,5 +60,4 @@ public class SlotLabels extends GridPanel implements Observer {
     private String generateID(int row, char ch) {
     	return Character.toString(ch) + Integer.toString(row);
     }
-    
 }

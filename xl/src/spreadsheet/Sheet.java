@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+import util.ParserException;
 import util.XLException;
 import gui.SheetBase;
 
@@ -35,49 +37,64 @@ public class Sheet extends SheetBase {
 	}
 
 	public void setValue(String name, String input) throws XLException {
-		if ( checkInput(input) ) {
-			Slot oldSlot = map.get(name);
-			Slot newSlot = sb.build(input);
-			try {
-				map.put(name, sb.buildBomb());
-				newSlot.value();
-				map.put(name, sb.build(input));
-			} catch (Exception e) {
-				System.out.println("Exception fångat i setValue rad 45");
-				if (oldSlot != null) {
-					map.put(name, oldSlot);
-				}
-				status.setStatusMessage( e.getMessage() );
-				return;
-			}
-			status.setStatusMessage("Great Success!");
-			setChanged();
-			notifyObservers();
+		Slot newSlot;
+		// om cellen är tom, ta bort den.
+		if ( input.isEmpty()) {
+			clear(name);
+			return;
 		}
+		// kolla om input är rätt formatterat, eller om det är referenser som blir fel
+		try {
+			newSlot = checkInput(input);
+		} catch (XLException e) {
+			return;
+		}
+		// pröva sätta in den nya sloten.
+		Slot oldSlot = map.get(name);
+		try {
+			map.put(name, sb.buildBomb());
+			newSlot.value(); //kollar efter cirkulära dependencies
+			map.put(name, newSlot);
+			
+			//nu ska vi kolla efter division med noll för alla andra slots. 
+			LinkedList<String> list = map.getList();
+			for (int i = 0; i < list.size() ; i++ ) {
+				map.get( list.get(i) ).value();
+			}
+		} catch (Exception e) {
+			//någonting blev fel, återställ.
+			if (oldSlot != null) {
+				map.put(name, oldSlot);
+			}
+			status.setStatusMessage(e.getMessage());
+			return;
+		}
+		status.setStatusMessage("Great Success!");
+		setChanged();
+		notifyObservers();
 	}
 	
 	/**
 	 * @param input String to be checked
-	 * @return true if no invalid reference is caused by the input, 
+	 * @return a new SlotObject if no invalid reference is caused by the input, 
 	 * 			and if the input is properly formated.
+	 * Updates the status-object if it throws an exception.
 	 */
-	private boolean checkInput(String input) {
+	private Slot checkInput(String input) throws XLException {
 		try {
 			Slot s = sb.build(input);
 			s.value();
+			return s;
 		} catch (Exception e) {
-			System.out.println("Hej");
-			System.out.println(e.getMessage());
 			if (e instanceof NullPointerException) {
-				status.setStatusMessage("Invalid reference!");
-				return false;
+				status.setStatusMessage("Invalid reference!");	
 			} else if (e instanceof XLException) {
 				status.setStatusMessage(e.getMessage() );
-				return false;
+			} else { 
+				status.setStatusMessage("Improperly formatted input.");
 			}
-			return false;
+			throw new ParserException();
 		}
-		return true;
 	}
 	
 	@Override
@@ -99,19 +116,13 @@ public class Sheet extends SheetBase {
 		try {
 			scan = new Scanner(f);
 		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage());
+			//System.err.println(e.getMessage());
 			status.setStatusMessage("Error in reading from file!");
 		}
 		if (scan != null) {
 			String[] list;
 			while (scan.hasNext()) {
-				list = scan.nextLine().split("=");
-				// Does not handle "=" in comments in save file...
-//				if ( list[1].contains("#") ) {
-//					for (int i = 2; i < list.length ; i++) {
-//						list[1] = list[1].concat("=").concat(list[i]);
-//					}
-//				}
+				list = scan.nextLine().split("=",2);
 				setValue(list[0], list[1]);
 			}
 		}
@@ -127,7 +138,7 @@ public class Sheet extends SheetBase {
 		try {
 			p = new PrintWriter(f);
 		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage());
+			//System.err.println(e.getMessage());
 			status.setStatusMessage("I can't let you save to file, Dave...");
 		}
 		StringBuilder sb = new StringBuilder();

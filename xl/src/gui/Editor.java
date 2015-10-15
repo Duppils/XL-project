@@ -10,8 +10,8 @@ import java.util.Observer;
 import controll.*;
 
 public class Editor extends JTextField implements Observer {
-	SheetBase sheet;
-	CurrentModel cm;
+	private SheetBase sheet;
+	private CurrentModel cm;
 	
     public Editor(SheetBase sheet, Control c) {
     	this.sheet = sheet;
@@ -29,14 +29,6 @@ public class Editor extends JTextField implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		try {
-			// currentmodel var det som uppdaterats.
-			CurrentModel cm1 = (CurrentModel) o;
-			setText( sheet.getFormatedValue( cm.getState() ) );
-		} catch (Exception e) {
-			// det var inte cm, utan då var det sheet istället...
-			setText( sheet.getFormatedValue( cm.getState() ) );
-		}
-		
+		setText( sheet.getFormatedValue( cm.getState() ) );
 	}
 }

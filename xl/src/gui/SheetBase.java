@@ -23,6 +23,7 @@ public abstract class SheetBase extends Observable implements Environment {
 	 */
 	public abstract String getValue(String name) throws XLException;
 	
+	
 	public abstract void setValue(String name, String textInput) throws XLException;
 	
 	public abstract boolean clear(String name) throws XLException;

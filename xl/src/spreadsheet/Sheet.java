@@ -36,6 +36,15 @@ public class Sheet extends SheetBase {
 		}
 	}
 
+	/**
+	 * Sets the value corresponding to name, to input
+	 * @param name
+	 * @param textInput
+	 * @throws XLException
+	 * 
+	 * An empty input, results in removal of the value corresponding to name.
+	 * Updates the status according to exceptions thrown from other functions.
+	 */
 	public void setValue(String name, String input) throws XLException {
 		Slot newSlot;
 		// om cellen är tom, ta bort den.
